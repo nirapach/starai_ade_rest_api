@@ -54,31 +54,6 @@ public class DispatcherConfig {
 
     @Bean
     @SuppressWarnings("unchecked")
-    public DriverManagerDataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-        dataSource.setUrl(env.getProperty("jdbc.url"));
-        dataSource.setUsername(env.getProperty("jdbc.username"));
-        dataSource.setPassword(env.getProperty("jdbc.password"));
-
-        return dataSource;
-    }
-
-
-    @Bean
-    @SuppressWarnings("unchecked")
-    public JdbcTemplate jdbcTemplate() {
-        return new JdbcTemplate(dataSource());
-    }
-
-    @Bean
-    @SuppressWarnings("unchecked")
-    public PlatformTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(dataSource());
-    }
-
-    @Bean
-    @SuppressWarnings("unchecked")
     public MappingJackson2HttpMessageConverter jsonConverter() {
         MappingJackson2HttpMessageConverter jsonConverter= new MappingJackson2HttpMessageConverter();
         List<MediaType> supportedMediaTypes = new ArrayList<MediaType>();

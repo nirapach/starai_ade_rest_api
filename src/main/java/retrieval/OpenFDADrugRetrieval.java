@@ -2,15 +2,18 @@ package retrieval;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
 import java.io.*;
 import java.util.Set;
 
 /**
- * Created by Vignesh on 4/18/2016.
+ * Created by Niranjan on 6/14/2016.
  */
-public class RetrieveData {
+@SuppressWarnings("unchecked")
+@Service
+public class OpenFDADrugRetrieval {
     //address of your redis server
     private static final String redisHost = "127.0.0.1";
     private static final Integer redisPort = 6379;
@@ -19,15 +22,18 @@ public class RetrieveData {
     private static final String SEMI_COLON_DELIMITER = ";";
     private static final String NEW_LINE_SEPARATOR = "\n";
 
-    public static Jedis connectRedis() {
+    public OpenFDADrugRetrieval() {
+    }
+
+    public Jedis connectRedis() {
         Jedis jedis = new Jedis(redisHost, redisPort);
         jedis.connect();
         jedis.select(databaseIndex);
-        System.out.println("Connected Jedis client");
+        //System.out.println("Connected Jedis client");
         return jedis;
     }
 
-    public static boolean retrieveParams(String inputName,int databaseIndex) {
+    public boolean retrieveParams(String inputName,int databaseIndex) {
 
         Jedis conn = connectRedis();
         inputName = inputName.toLowerCase().trim();
@@ -38,7 +44,7 @@ public class RetrieveData {
     }
 
 
-    public static JSONObject makeJsonObject(String drugName, Set<String> values) {
+    public JSONObject makeJsonObject(String drugName, Set<String> values) {
         JSONObject jsoon = new JSONObject();
         JSONArray arrayOutput = new JSONArray();
         for (String effects : values) {
@@ -51,16 +57,23 @@ public class RetrieveData {
         return jsoon;
     }
 
-    public static boolean retrieveOnDrugName(String drugName) {
+    public JSONObject retrieveOnDrugName(String drugName) {
         Jedis conn = connectRedis();
         drugName = drugName.toLowerCase().trim();
         Set<String> effectOutput = conn.smembers(drugName);
-        System.out.println(makeJsonObject(drugName, effectOutput).toString());
+        return makeJsonObject(drugName, effectOutput);
 
-        return true;
     }
 
-    public static boolean retrieveOnDruginFile(File fileName, String outputFilePath) {
+    public JSONObject retrieveOnDrugIndicationName(String drugName) {
+        Jedis conn = connectRedis();
+        drugName = drugName.toLowerCase().trim();
+        Set<String> effectOutput = conn.smembers(drugName);
+        return makeJsonObject(drugName, effectOutput);
+
+    }
+
+    public boolean retrieveOnDruginFile(File fileName, String outputFilePath) {
         Jedis conn = connectRedis();
         boolean isSuccess = false;
         BufferedReader fileReader = null;
@@ -95,4 +108,9 @@ public class RetrieveData {
             return isSuccess;
         }
     }
+
+
 }
+
+
+

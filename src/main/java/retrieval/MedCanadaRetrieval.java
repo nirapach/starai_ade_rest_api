@@ -30,7 +30,7 @@ public class MedCanadaRetrieval {
         Jedis jedis = new Jedis(redisHost, redisPort);
         jedis.connect();
         jedis.select(databaseIndex);
-        System.out.println("Connected Jedis client");
+        //System.out.println("Connected Jedis client");
         return jedis;
     }
 

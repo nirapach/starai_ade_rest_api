@@ -57,7 +57,15 @@ public class OffsidesTwosidesRetrieval {
         return jsoon;
     }
 
-    public JSONObject retrieveOnDrugName(String drugName) {
+    public JSONObject retrieveOffsidesOnDrugName(String drugName) {
+        Jedis conn = connectRedis();
+        drugName = drugName.toLowerCase().trim();
+        Set<String> effectOutput = conn.smembers(drugName);
+        return makeJsonObject(drugName, effectOutput);
+
+    }
+
+    public JSONObject retrieveTwosidesOnDrugName(String drugName) {
         Jedis conn = connectRedis();
         drugName = drugName.toLowerCase().trim();
         Set<String> effectOutput = conn.smembers(drugName);
