@@ -1,7 +1,7 @@
 package com.starai.ade.configuration;
 
 /**
- * Created by niranjan on 7/1/15.
+ * Created by niranjan on 6/17/16
  */
 
 import org.springframework.context.MessageSource;
