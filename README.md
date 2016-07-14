@@ -24,25 +24,25 @@ Note: If called from external application LocalHost should be replaced by NILS i
 If called from NILS itself then localhost would be fine
 
 
-*For getting events from fda database using drug name:
+For getting events from fda database using drug name:
 
-"curl http://localhost:8080/ade_starai_webapi-1.0/fda_ade/?drug_name=something";
+          "curl http://localhost:8080/ade_starai_webapi-1.0/fda_ade/?drug_name=something";
 
-*For getting events from fda database using drug indication:
+For getting events from fda database using drug indication:
 
-"curl http://localhost:8080/ade_starai_webapi-1.0/fda_ade/di/?drug_indication=something";
+          "curl http://localhost:8080/ade_starai_webapi-1.0/fda_ade/di/?drug_indication=something";
 
-*For getting events from offsides database using drug name:
+For getting events from offsides database using drug name:
 
-"curl http://localhost:8080/ade_starai_webapi-1.0/offsides_ade/?drug_name=something";
+          "curl http://localhost:8080/ade_starai_webapi-1.0/offsides_ade/?drug_name=something";
 
-*For getting events from twosides database using drug name:
+For getting events from twosides database using drug name:
 
-"curl http://localhost:8080/ade_starai_webapi-1.0/twosides_ade/?drug_pairs=something";
+          "curl http://localhost:8080/ade_starai_webapi-1.0/twosides_ade/?drug_pairs=something";
 
-*For getting events from med canada database using drug name:
+For getting events from med canada database using drug name:
 
-"curl http://localhost:8080/ade_starai_webapi-1.0/medcanada_ade/?drug_name=something";
+          "curl http://localhost:8080/ade_starai_webapi-1.0/medcanada_ade/?drug_name=something";
 
 Note: Deploy the war file under tomcat webapps folder.
 Tomcat will be located in /home/projects/tomcat/
