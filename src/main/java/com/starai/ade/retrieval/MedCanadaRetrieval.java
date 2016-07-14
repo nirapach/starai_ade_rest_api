@@ -1,4 +1,4 @@
-package retrieval;
+package com.starai.ade.retrieval;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,16 +13,16 @@ import java.util.Set;
  */
 @SuppressWarnings("unchecked")
 @Service
-public class OpenFDADrugRetrieval {
+public class MedCanadaRetrieval {
     //address of your redis server
     private static final String redisHost = "127.0.0.1";
     private static final Integer redisPort = 6379;
-    private static final int databaseIndex = 1;
+    private static final int databaseIndex = 3;
     private static final String COMMA_DELIMITER = ",";
     private static final String SEMI_COLON_DELIMITER = ";";
     private static final String NEW_LINE_SEPARATOR = "\n";
 
-    public OpenFDADrugRetrieval() {
+    public MedCanadaRetrieval() {
     }
 
     public Jedis connectRedis() {
@@ -58,14 +58,6 @@ public class OpenFDADrugRetrieval {
     }
 
     public JSONObject retrieveOnDrugName(String drugName) {
-        Jedis conn = connectRedis();
-        drugName = drugName.toLowerCase().trim();
-        Set<String> effectOutput = conn.smembers(drugName);
-        return makeJsonObject(drugName, effectOutput);
-
-    }
-
-    public JSONObject retrieveOnDrugIndicationName(String drugName) {
         Jedis conn = connectRedis();
         drugName = drugName.toLowerCase().trim();
         Set<String> effectOutput = conn.smembers(drugName);

@@ -1,10 +1,9 @@
-package retrieval;
+package com.starai.ade.retrieval;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.stereotype.Component;
-import redis.clients.jedis.Jedis;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 import java.io.*;
 import java.util.Set;
@@ -14,23 +13,23 @@ import java.util.Set;
  */
 @SuppressWarnings("unchecked")
 @Service
-public class MedCanadaRetrieval {
+public class OffsidesTwosidesRetrieval {
     //address of your redis server
     private static final String redisHost = "127.0.0.1";
     private static final Integer redisPort = 6379;
-    private static final int databaseIndex = 3;
+    private static final int databaseIndex = 2;
     private static final String COMMA_DELIMITER = ",";
     private static final String SEMI_COLON_DELIMITER = ";";
     private static final String NEW_LINE_SEPARATOR = "\n";
 
-    public MedCanadaRetrieval() {
+    public OffsidesTwosidesRetrieval() {
     }
 
     public Jedis connectRedis() {
         Jedis jedis = new Jedis(redisHost, redisPort);
         jedis.connect();
         jedis.select(databaseIndex);
-        //System.out.println("Connected Jedis client");
+        System.out.println("Connected Jedis client");
         return jedis;
     }
 
@@ -58,7 +57,15 @@ public class MedCanadaRetrieval {
         return jsoon;
     }
 
-    public JSONObject retrieveOnDrugName(String drugName) {
+    public JSONObject retrieveOffsidesOnDrugName(String drugName) {
+        Jedis conn = connectRedis();
+        drugName = drugName.toLowerCase().trim();
+        Set<String> effectOutput = conn.smembers(drugName);
+        return makeJsonObject(drugName, effectOutput);
+
+    }
+
+    public JSONObject retrieveTwosidesOnDrugName(String drugName) {
         Jedis conn = connectRedis();
         drugName = drugName.toLowerCase().trim();
         Set<String> effectOutput = conn.smembers(drugName);

@@ -1,7 +1,5 @@
 package com.starai.ade.model;
 
-import java.util.Date;
-
 public class FDAADELevelStats {
 
     private String drugName;
